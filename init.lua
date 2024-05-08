@@ -4,6 +4,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Set the tabs to 2 spaces
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
 
@@ -83,6 +87,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', '<C-]>', '<Cmd>BufferNext<CR>')
 vim.keymap.set('n', '<C-[>', '<Cmd>BufferPrevious<CR>')
 
+-- Keymaps for nvim tree
+vim.keymap.set('n', '<leader>t', '<Cmd>NvimTreeToggle<CR>')
+
 -- Keymaps for closing current buffer
 vim.keymap.set('n', '<leader>q', '<Cmd>bd<CR>')
 
@@ -147,7 +154,42 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
+  {
+    'nvim-tree/nvim-tree.lua',
+    version = '*',
+    lazy = false,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('nvim-tree').setup {
+        git = {
+          enable = false,
+        },
+        filters = {
+          dotfiles = false,
+          git_ignored = false,
+        },
+      }
+    end,
+  },
+  -- Copilot setup
   'github/copilot.vim',
+
+  -- Remove dumb markdownlint rules
+  {
+    'mfussenegger/nvim-lint',
+    opts = {
+      linters = {
+        markdownlint = {
+          args = { '--disable', 'MD013', '--' },
+        },
+      },
+    },
+  },
+
+  -- Markdown Previewer
+  { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow' },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -461,7 +503,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -470,8 +512,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-        --
+        tsserver = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -564,13 +605,12 @@ require('lazy').setup({
         }
       end,
       formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        ['lua'] = { 'stylua' },
+        ['javascript'] = { { 'prettier', 'prettierd' } },
+        ['typescript'] = { { 'prettier', 'prettierd' } },
+        ['typescriptreact'] = { { 'prettier', 'prettierd' } },
+        ['javascriptreact'] = { { 'prettier', 'prettierd' } },
+        ['json'] = { { 'prettier', 'prettierd' } },
       },
     },
   },
@@ -693,6 +733,11 @@ require('lazy').setup({
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'oxocarbon'
 
+      vim.cmd [[
+          highlight Normal guibg=NONE ctermbg=NONE
+          highlight! link NormalFloat Normal
+      ]]
+
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
@@ -738,11 +783,12 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -780,7 +826,7 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
