@@ -184,6 +184,9 @@ require('lazy').setup({
   -- Copilot setup
   'github/copilot.vim',
 
+  -- Fugitive for Git commands
+  'tpope/vim-fugitive',
+
   -- Remove dumb markdownlint rules
   {
     'mfussenegger/nvim-lint',
