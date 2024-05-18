@@ -197,10 +197,9 @@ require('lazy').setup({
   -- Copilot setup
   'github/copilot.vim',
 
-<<<<<<< HEAD
   -- Fugitive for Git commands
   'tpope/vim-fugitive',
-=======
+
   -- Tailwind class sorter plugin
   {
     'laytan/tailwind-sorter.nvim',
@@ -212,7 +211,6 @@ require('lazy').setup({
       }
     end,
   },
->>>>>>> ecbbe08 (add trouble for error lists, add tailwind class sorter)
 
   -- Remove dumb markdownlint rules
   {
