@@ -81,7 +81,6 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Keymaps for BarBar.nvim
 vim.keymap.set('n', '<C-]>', '<Cmd>BufferNext<CR>')
@@ -89,6 +88,9 @@ vim.keymap.set('n', '<C-[>', '<Cmd>BufferPrevious<CR>')
 
 -- Keymaps for nvim tree
 vim.keymap.set('n', '<leader>t', '<Cmd>NvimTreeToggle<CR>')
+
+-- Keymaps for error list
+vim.keymap.set('n', '<leader>e', '<Cmd>TroubleToggle<CR>')
 
 -- Keymaps for closing current buffer
 vim.keymap.set('n', '<leader>q', '<Cmd>bd<CR>')
@@ -181,11 +183,36 @@ require('lazy').setup({
     end,
   },
 
+  -- Plugin for error lists
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+
   -- Copilot setup
   'github/copilot.vim',
 
+<<<<<<< HEAD
   -- Fugitive for Git commands
   'tpope/vim-fugitive',
+=======
+  -- Tailwind class sorter plugin
+  {
+    'laytan/tailwind-sorter.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
+    build = 'cd formatter && npm ci && npm run build',
+    config = function()
+      require('tailwind-sorter').setup {
+        on_save_enabled = true,
+      }
+    end,
+  },
+>>>>>>> ecbbe08 (add trouble for error lists, add tailwind class sorter)
 
   -- Remove dumb markdownlint rules
   {
