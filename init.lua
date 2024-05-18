@@ -179,7 +179,34 @@ require('lazy').setup({
   {
     'goolord/alpha-nvim',
     config = function()
-      require('alpha').setup(require('alpha.themes.dashboard').config)
+      local alpha = require 'alpha'
+      local dashboard = require 'alpha.themes.dashboard'
+
+      dashboard.section.header.val = {
+        '       __                    ___          _   __                _         ',
+        '      / /___ _________  ____/ ( )_____   / | / /__  ____ _   __(_)___ ___ ',
+        ' __  / / __ `/ ___/ _ \\/ __  /|// ___/  /  |/ / _ \\/ __ \\ | / / / __ `__ ',
+        '/ /_/ / /_/ / /  /  __/ /_/ /  (__  )  / /|  /  __/ /_/ / |/ / / / / / / /',
+        '\\____/\\__,_/_/   \\___/\\__,_/  /____/  /_/ |_/\\___/\\____/|___/_/_/ /_/ /_/ ',
+        '                                                                           ',
+      }
+
+      dashboard.section.buttons.val = {
+        dashboard.button('p', '📁 Find file', '<leader>p'),
+        dashboard.button('gf', '🗄️ Find Git File', '<leader>gf'),
+        dashboard.button('sg', '🔎 Find string by grep', '<leader>sg'),
+        dashboard.button('t', '⬅️  Open sidebar', '<leader>t'),
+      }
+
+      dashboard.section.footer.val = {
+        'Have a good day!',
+      }
+
+      dashboard.section.terminal.val = {
+        ' Terminal',
+      }
+
+      alpha.setup(dashboard.opts)
     end,
   },
 
