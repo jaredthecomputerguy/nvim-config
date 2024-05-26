@@ -254,14 +254,16 @@ require('lazy').setup({
   -- Markdown Previewer
   { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow' },
 
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to force a plugin to be loaded.
-  --
-  --  This is equivalent to:
-  --    require('Comment').setup({})
+  -- Plugin to toggle a terminal window
+  {
+    'akinsho/nvim-toggleterm.lua',
+    config = function()
+      require('toggleterm').setup {
+        open_mapping = [[<c-t>]],
+        direction = 'float',
+      }
+    end,
+  },
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
