@@ -660,6 +660,7 @@ require('lazy').setup({
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
+
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
@@ -684,11 +685,6 @@ require('lazy').setup({
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
-
-          -- Accept ([y]es) the completion.
-          --  This will auto-import if your LSP supports it.
-          --  This will expand snippets if the LSP sent a snippet.
-          ['<>'] = cmp.mapping.confirm { select = true },
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -726,14 +722,26 @@ require('lazy').setup({
     end,
   },
 
-  -- Theme (Color Scheme)
   {
-    'nyoom-engineering/oxocarbon.nvim',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     config = function()
-      vim.cmd 'colorscheme oxocarbon'
-      vim.opt.background = 'dark'
+      require('catppuccin').setup {
+        flavour = 'mocha',
+      }
+
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
+
+  -- OLD Theme (Color Scheme)
+  -- {
+  --   'nyoom-engineering/oxocarbon.nvim',
+  --   config = function()
+  --     vim.cmd 'colorscheme oxocarbon'
+  --     vim.opt.background = 'dark'
+  --   end,
+  -- },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
@@ -780,7 +788,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'vim', 'vimdoc', 'markdown', 'markdown_inline' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
