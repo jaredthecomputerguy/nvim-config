@@ -89,6 +89,9 @@ vim.keymap.set('n', '<leader>e', '<Cmd>TroubleToggle<CR>')
 -- Keymaps for closing current buffer
 vim.keymap.set('n', '<leader>q', '<Cmd>bd<CR>')
 
+-- Keymaps for closing ALL but current buffer
+vim.keymap.set('n', '<leader>qa', '<Cmd>BufferCloseAllButCurrent<CR>')
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
