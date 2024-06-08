@@ -180,10 +180,10 @@ require('lazy').setup({
       }
 
       dashboard.section.buttons.val = {
-        dashboard.button('p', '📁 Find file', '<leader>p'),
+        dashboard.button('p', '📁 Find File', '<leader>p'),
         dashboard.button('gf', '🗄️ Find Git File', '<leader>gf'),
-        dashboard.button('sg', '🔎 Find string by grep', '<leader>sg'),
-        dashboard.button('t', '⬅️  Open sidebar', '<leader>t'),
+        dashboard.button('sg', '🔎 Find String by Grep', '<leader>sg'),
+        dashboard.button('t', '⬅️  Open Sidebar', '<leader>t'),
       }
 
       dashboard.section.footer.val = {
