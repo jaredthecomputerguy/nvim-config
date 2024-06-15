@@ -1,4 +1,4 @@
--- Set <space> as the leader key
+-- Set <space> as the leader keyinit
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -209,8 +209,19 @@ require('lazy').setup({
     },
   },
 
-  -- Copilot setup
-  'github/copilot.vim',
+  -- Copilot setup (REMOVED FOR NOW)
+  -- 'github/copilot.vim',
+
+  {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup {
+        keymaps = {
+          accept_suggestion = '<C-y>',
+        },
+      }
+    end,
+  },
 
   -- Fugitive for Git commands
   'tpope/vim-fugitive',
