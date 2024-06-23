@@ -631,6 +631,7 @@ require('lazy').setup({
         ['typescriptreact'] = { { 'prettier', 'prettierd' } },
         ['javascriptreact'] = { { 'prettier', 'prettierd' } },
         ['json'] = { { 'prettier', 'prettierd' } },
+        ['python'] = { 'black' },
       },
     },
   },
