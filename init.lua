@@ -740,19 +740,20 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    config = function()
-      require('catppuccin').setup {
-        flavour = 'mocha',
-      }
+  -- Old Theme
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   config = function()
+  --     require('catppuccin').setup {
+  --       flavour = 'mocha',
+  --     }
+  --
+  --     vim.cmd.colorscheme 'catppuccin'
+  --   end,
+  -- },
 
-      vim.cmd.colorscheme 'catppuccin'
-    end,
-  },
-
-  -- OLD Theme (Color Scheme)
+  -- OLDER Theme
   -- {
   --   'nyoom-engineering/oxocarbon.nvim',
   --   config = function()
@@ -760,6 +761,21 @@ require('lazy').setup({
   --     vim.opt.background = 'dark'
   --   end,
   -- },
+
+  -- Current Theme
+  {
+    'scottmckendry/cyberdream.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'cyberdream'
+      require('cyberdream').setup {
+        transparent = true,
+        borderless_telescope = true,
+        terminal_colors = true,
+      }
+    end,
+  },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
