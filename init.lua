@@ -376,6 +376,7 @@ require('lazy').setup({
         pickers = {
           find_files = {
             no_ignore = true,
+            hidden = true,
           },
         },
         extensions = {
