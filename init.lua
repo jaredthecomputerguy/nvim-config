@@ -212,6 +212,7 @@ require('lazy').setup({
   -- Copilot setup (REMOVED FOR NOW)
   -- 'github/copilot.vim',
 
+  -- Supermaven setup
   {
     'supermaven-inc/supermaven-nvim',
     config = function()
@@ -619,17 +620,9 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        return {
-          timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-        }
-      end,
+      format_on_save = true,
       formatters_by_ft = {
+        ['c'] = { 'clang_format' },
         ['lua'] = { 'stylua' },
         ['javascript'] = { { 'prettier', 'prettierd' } },
         ['typescript'] = { { 'prettier', 'prettierd' } },
