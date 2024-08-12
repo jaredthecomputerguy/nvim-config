@@ -740,24 +740,30 @@ require('lazy').setup({
 
   -- Current Theme
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
+    'rebelot/kanagawa.nvim',
+    lazy = false,
+    priority = 1000,
     config = function()
-      require('catppuccin').setup {
-        flavour = 'mocha',
-        transparent_background = true,
+      require('kanagawa').setup {
+        theme = 'dragon',
+        transparent = true,
+        undercurl = true,
       }
-
-      vim.cmd.colorscheme 'catppuccin'
+      vim.cmd.colorscheme 'kanagawa'
     end,
   },
 
   -- Old Theme
   -- {
-  --   'nyoom-engineering/oxocarbon.nvim',
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
   --   config = function()
-  --     vim.cmd 'colorscheme oxocarbon'
-  --     vim.opt.background = 'dark'
+  --     require('catppuccin').setup {
+  --       flavour = 'mocha',
+  --       transparent_background = true,
+  --     }
+  --
+  --     vim.cmd.colorscheme 'catppuccin'
   --   end,
   -- },
 
