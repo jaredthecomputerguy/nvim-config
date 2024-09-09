@@ -83,9 +83,6 @@ vim.keymap.set('n', '<C-[>', '<Cmd>BufferPrevious<CR>')
 -- Keymaps for nvim tree
 vim.keymap.set('n', '<leader>t', '<Cmd>NvimTreeToggle<CR>')
 
--- Keymaps for error list
-vim.keymap.set('n', '<leader>e', '<Cmd>TroubleToggle<CR>')
-
 -- Keymaps for closing current buffer
 vim.keymap.set('n', '<leader>q', '<Cmd>bd<CR>')
 
@@ -202,10 +199,13 @@ require('lazy').setup({
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+    opts = {},
+    keys = {
+      {
+        '<leader>e',
+        '<cmd>Trouble diagnostics toggle focus=true<cr>',
+        desc = 'Diagnostics (Trouble)',
+      },
     },
   },
 
@@ -549,7 +549,7 @@ require('lazy').setup({
           },
         },
         gopls = {},
-        tsserver = {},
+        ts_ls = {},
         lua_ls = {
           settings = {
             Lua = {
