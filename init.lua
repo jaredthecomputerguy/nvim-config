@@ -32,6 +32,10 @@ vim.opt.clipboard = 'unnamedplus'
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- Enable folding based on indentation
+vim.opt.foldmethod = 'indent'
+vim.opt.foldlevel = 99
+
 -- Save undo history
 vim.opt.undofile = true
 
@@ -629,6 +633,7 @@ require('lazy').setup({
         ['typescript'] = { { 'prettier', 'prettierd' } },
         ['typescriptreact'] = { { 'prettier', 'prettierd' } },
         ['javascriptreact'] = { { 'prettier', 'prettierd' } },
+        ['go'] = { 'gopls' },
         ['json'] = { { 'prettier', 'prettierd' } },
         ['python'] = { 'black' },
       },
