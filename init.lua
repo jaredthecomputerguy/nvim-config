@@ -631,6 +631,7 @@ require('lazy').setup({
         ['lua'] = { 'stylua' },
         ['javascript'] = { { 'prettier', 'prettierd' } },
         ['typescript'] = { { 'prettier', 'prettierd' } },
+        ['svelte'] = { { 'prettier', 'prettierd' } },
         ['typescriptreact'] = { { 'prettier', 'prettierd' } },
         ['javascriptreact'] = { { 'prettier', 'prettierd' } },
         ['go'] = { 'gopls' },
