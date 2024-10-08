@@ -217,16 +217,16 @@ require('lazy').setup({
   -- 'github/copilot.vim',
 
   -- Supermaven setup
-  {
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-      require('supermaven-nvim').setup {
-        keymaps = {
-          accept_suggestion = '<C-y>',
-        },
-      }
-    end,
-  },
+  -- {
+  --   'supermaven-inc/supermaven-nvim',
+  --   config = function()
+  --     require('supermaven-nvim').setup {
+  --       keymaps = {
+  --         accept_suggestion = '<C-y>',
+  --       },
+  --     }
+  --   end,
+  -- },
 
   -- Fugitive for Git commands
   'tpope/vim-fugitive',
@@ -682,6 +682,15 @@ require('lazy').setup({
 
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+
+      luasnip.add_snippets('svelte', {
+        luasnip.snippet('script', {
+          luasnip.text_node '<script lang="ts">',
+          luasnip.text_node { '', '\t' },
+          luasnip.insert_node(1),
+          luasnip.text_node { '', '</script>' },
+        }),
+      })
 
       cmp.setup {
         snippet = {
