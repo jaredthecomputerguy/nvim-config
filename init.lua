@@ -130,17 +130,6 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
--- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
@@ -213,20 +202,17 @@ require('lazy').setup({
     },
   },
 
-  -- Copilot setup (REMOVED FOR NOW)
-  -- 'github/copilot.vim',
-
   -- Supermaven setup
-  -- {
-  --   'supermaven-inc/supermaven-nvim',
-  --   config = function()
-  --     require('supermaven-nvim').setup {
-  --       keymaps = {
-  --         accept_suggestion = '<C-y>',
-  --       },
-  --     }
-  --   end,
-  -- },
+  {
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+      require('supermaven-nvim').setup {
+        keymaps = {
+          accept_suggestion = '<C-y>',
+        },
+      }
+    end,
+  },
 
   -- Fugitive for Git commands
   'tpope/vim-fugitive',
@@ -552,7 +538,22 @@ require('lazy').setup({
             },
           },
         },
-        gopls = {},
+        gopls = {
+          settings = {
+            gopls = {
+              usePlaceholders = true,
+              staticcheck = true,
+              analyses = {
+                unusedparams = true,
+                shadow = true,
+              },
+              -- Add other settings as needed
+            },
+          },
+          on_attach = function(client, bufnr)
+            vim.api.nvim_command 'autocmd BufWritePre <buffer> lua vim.lsp.buf.format()'
+          end,
+        },
         ts_ls = {},
         lua_ls = {
           settings = {
@@ -629,13 +630,14 @@ require('lazy').setup({
         ['c'] = { 'clang_format' },
         ['cs'] = { 'csharpier' },
         ['lua'] = { 'stylua' },
-        ['javascript'] = { { 'prettier', 'prettierd' } },
-        ['typescript'] = { { 'prettier', 'prettierd' } },
-        ['svelte'] = { { 'prettier', 'prettierd' } },
+        ['javascript'] = { 'prettier' },
+        ['typescript'] = { 'prettier' },
+        ['svelte'] = { 'prettier' },
         ['typescriptreact'] = { { 'prettier', 'prettierd' } },
         ['javascriptreact'] = { { 'prettier', 'prettierd' } },
         ['go'] = { 'gopls' },
-        ['json'] = { { 'prettier', 'prettierd' } },
+        ['json'] = { 'prettier' },
+        ['jsonc'] = { 'prettier' },
         ['python'] = { 'black' },
       },
     },
@@ -661,12 +663,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -754,7 +756,9 @@ require('lazy').setup({
     end,
   },
 
-  -- Current Theme
+  --
+
+  -- Kanagawa
   {
     'rebelot/kanagawa.nvim',
     lazy = false,
@@ -769,19 +773,36 @@ require('lazy').setup({
     end,
   },
 
-  -- Old Theme
-  -- {
-  --   'catppuccin/nvim',
-  --   name = 'catppuccin',
-  --   config = function()
-  --     require('catppuccin').setup {
-  --       flavour = 'mocha',
-  --       transparent_background = true,
-  --     }
-  --
-  --     vim.cmd.colorscheme 'catppuccin'
-  --   end,
-  -- },
+  -- Gruvbox
+  {
+    'ellisonleao/gruvbox.nvim',
+    priority = 1000,
+    config = true,
+  },
+
+  -- Cyberdream
+  {
+    'scottmckendry/cyberdream.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('cyberdream').setup {
+        transparent = true,
+      }
+    end,
+  },
+
+  -- Theme Picker
+  {
+    'zaldih/themery.nvim',
+    lazy = false,
+    config = function()
+      require('themery').setup {
+        themes = { 'kanagawa', 'gruvbox', 'cyberdream' },
+        livePreview = true, -- Apply theme while picking. Default to true.
+      }
+    end,
+  },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
